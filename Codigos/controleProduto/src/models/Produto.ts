@@ -8,8 +8,8 @@ export class Produto {
         this.preco = preco;
         this.estoque = 0;      
     }
-
-    adicionarEstoquew(qtd: number){
+    
+    adicionarEstoque(qtd: number){
         this.estoque += qtd;
 
     }

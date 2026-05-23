@@ -1,8 +1,18 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import React, {useState, useRef} from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton } from '@ionic/react';
 import './Home.css';
+import { Produto } from '../models/Produto';
 
 const Home: React.FC = () => {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+
+  function adicionar(){
+    const novoProduto = new Produto("Feijão", 5.00);
+
+    setProdutos([...produtos, novoProduto])
+
+    console.log(produtos);
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -20,6 +30,8 @@ const Home: React.FC = () => {
       <br />
 
         <IonInput label="Estoque" labelPlacement="floating" fill="outline" placeholder="Digite aqui"></IonInput>
+      
+      <IonButton onClick={adicionar}> Cadastrar Produto</IonButton>
       </IonContent>
     </IonPage>
   );
