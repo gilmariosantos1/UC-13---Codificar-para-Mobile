@@ -4,12 +4,13 @@ import './Home.css';
 import { Produto } from '../models/Produto';
 
 const Home: React.FC = () => {
+  
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const nomeRef = useRef<any>(null);
   const precoRef = useRef<any>(null);
   const estoqueRef = useRef<any>(null);
 
-  function adicionarProduto(){
+  function adicionar(){
     const nome = nomeRef.current?.value || "";
     const preco = parseFloat(precoRef.current?.value || "0");
     const estoque = parseInt(estoqueRef.current?.value || "0");
@@ -21,7 +22,6 @@ const Home: React.FC = () => {
       setProdutos([...produtos, novoProduto]);
       
       console.log("Produto adicionado:", novoProduto);
-      console.log("Produtos:", produtos);
 
       
       if (nomeRef.current) nomeRef.current.value = "";
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
 
         <IonInput ref={estoqueRef} label="Estoque" labelPlacement="floating" fill="outline" placeholder="Digite aqui"></IonInput>
       
-      <IonButton onClick={adicionarProduto}> Cadastrar Produto</IonButton>
+      <IonButton onClick={adicionar}> Cadastrar Produto</IonButton>
       </IonContent>
     </IonPage>
   );
