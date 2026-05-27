@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton } from '@ionic/react';
-import './Home.css';
 import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
 
