@@ -3,12 +3,13 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButt
 import './Home.css';
 import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
+
 interface HomeProps { produtos: Produto[] }
 
 const Home: React.FC<HomeProps> = ({ produtos }) => {
   const history = useHistory();
 
-   function navegarParaCadastro(){
+  function navegarParaCadastro(){
     history.push('/cadastro');
   }
   return (

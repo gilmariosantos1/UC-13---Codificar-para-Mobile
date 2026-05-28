@@ -8,7 +8,7 @@ export class Produto {
         this.preco = preco;
         this.estoque = 0;      
     }
-    
+    //método para adicionar estoque
     adicionarEstoque(qtd: number){
         this.estoque += qtd;
 

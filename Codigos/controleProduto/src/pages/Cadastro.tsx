@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton } from '@ionic/react';
 import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
+import { useIonAlert } from '@ionic/react';
 
 interface CadastroProps { addProduto: (p: Produto) => void }
 
@@ -11,6 +12,8 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
   const precoRef = useRef<any>(null);
   const estoqueRef = useRef<any>(null);
   const history = useHistory();
+
+  const [presentAlert] = useIonAlert();
 
   function adicionarProduto(){
     const nome = nomeRef.current?.value || "";
@@ -22,11 +25,24 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
       novoProduto.adicionarEstoque(estoque);
       addProduto(novoProduto);
 
+      presentAlert({
+        header: 'Sucesso',
+        message: 'Produto cadastrado com sucesso!',
+        buttons: ['OK']
+      });
+
       if (nomeRef.current) nomeRef.current.value = "";
       if (precoRef.current) precoRef.current.value = "";
       if (estoqueRef.current) estoqueRef.current.value = "";
 
+      //redirecionar para Home
       //history.push('/home');
+    } else {
+      presentAlert({
+        header: 'Erro',
+        message: 'Por favor, preencha o nome e o preço corretamente.',
+        buttons: ['OK']
+      });
     }
   }
   

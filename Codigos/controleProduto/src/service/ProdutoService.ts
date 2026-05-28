@@ -1,5 +1,7 @@
+//importanto a classe produto para usar aqui
 import { Produto } from "../models/Produto";
 
+//criando a classe de serviço para manipular os produtos
 export class ProdutoService {
    private chave = "produtos";
 
