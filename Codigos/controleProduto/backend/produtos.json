@@ -1,44 +1,8 @@
 [
   {
-    "id": 1,
-    "nome": "Camiseta",
-    "preco": 29.99,
-    "estoque": 100
-  },
-  {
-    "id": 2,
-    "nome": "Calça Jeans",
-    "preco": 79.99,
-    "estoque": 50
-  },
-  {
-    "id": 3,
-    "nome": "Tênis",
-    "preco": 149.99,
+    "id": 1780964796583,
+    "nome": "Feijão",
+    "preco": 3,
     "estoque": 30
-  },
-  {
-    "id": 1780526300341,
-    "nome": "Arroz",
-    "preco": 6,
-    "estoque": 150
-  },
-  {
-    "id": 1780526363056,
-    "nome": "Macarrão",
-    "preco": 50,
-    "estoque": 30
-  },
-  {
-    "id": 1780526522436,
-    "nome": "Carne bovina",
-    "preco": 40,
-    "estoque": 200
-  },
-  {
-    "id": 1780526673942,
-    "nome": "Alface",
-    "preco": 2,
-    "estoque": 100
   }
 ]

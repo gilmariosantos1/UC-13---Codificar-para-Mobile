@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, useIonViewWillEnter, IonIcon, IonTab, IonItemSliding, IonItemOption, IonItemOptions, IonItemOption} from '@ionic/react';
+import React, { useEffect, useRef } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, 
+  IonList, IonLabel, IonItem, useIonViewWillEnter, IonIcon, IonItemSliding,
+  useIonActionSheet,
+  IonModal, 
+  } from '@ionic/react';
 import { useState } from 'react';
 import { ProdutoService } from '../service/ProdutoService';
 import { useHistory } from 'react-router';
+import { trashOutline } from 'ionicons/icons';
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -30,6 +35,46 @@ const Home: React.FC = () => {
   function navegarParaCadastro(){
     history.push('/cadastro');
   }
+
+  //modal para confirmar a remoção do produto
+  const modal = useRef<HTMLIonModalElement>(null);
+  const page = useRef(null);
+
+  const [presentingElement, setPresentingElement] = useState<HTMLElement | null>(null);
+  const [present] = useIonActionSheet();
+
+  useEffect(() => {
+    setPresentingElement(page.current);
+  }, []);
+
+  function deletarProduto() {    
+    modal.current?.dismiss();    
+  }
+   function canDismiss() {
+    return new Promise<boolean>((resolve, reject) => {
+      present({
+        header: 'Are you sure?',
+        buttons: [
+          {
+            text: 'Yes',
+            role: 'confirm',
+          },
+          {
+            text: 'No',
+            role: 'cancel',
+          },
+        ],
+        onWillDismiss: (event) => {
+          if (event.detail.role === 'confirm') {
+            resolve(true);
+          } else {
+            reject();
+          }
+        },
+      });
+    });
+  }
+   
   return (
     <IonPage>
       <IonHeader>
@@ -50,18 +95,18 @@ const Home: React.FC = () => {
                 <IonLabel>
                   {produto.nome} - R$ {produto.preco.toFixed(2)} | Estoque: {estoque}               
                </IonLabel>             
-               <ion-icon name="trash-bin-outline">                                  
-               <IonItemOptions > 
-                <IonItemOption color='danger' onClick={() => removerProduto(produto.id)}>
-                  Remover
-                </IonItemOption>
-               </IonItemOptions>                
-               </ion-icon>
+               {/* <IonButton color='danger' onClick={() => deletarProduto()}>                                                
+                <IonIcon icon={trashOutline}> </IonIcon>                                            
+                Remover
+               </IonButton> */}
+
+               <IonModal ref={modal} canDismiss={canDismiss} presentingElement={presentingElement!}>
+                <p>Tem certeza que deseja remover este produto?</p>
+                <IonButton color='danger' onClick={() => deletarProduto()}>Remover</IonButton>                
+               </IonModal>
               </IonItem>              
               </IonItemSliding>
-
-            );
-            
+            );            
           })}          
          </IonList>
       </IonContent>
