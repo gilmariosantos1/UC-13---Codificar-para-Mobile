@@ -25,7 +25,7 @@ const Cadastro: React.FC = () => {
         message: 'Produto cadastrado com sucesso!',
         buttons: ['OK']
       });
-
+      
       if (nomeRef.current) nomeRef.current.value = "";
       if (precoRef.current) precoRef.current.value = "";
       if (estoqueRef.current) estoqueRef.current.value = "";

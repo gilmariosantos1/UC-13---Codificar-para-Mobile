@@ -95,10 +95,10 @@ const Home: React.FC = () => {
                 <IonLabel>
                   {produto.nome} - R$ {produto.preco.toFixed(2)} | Estoque: {estoque}               
                </IonLabel>             
-               {/* <IonButton color='danger' onClick={() => deletarProduto()}>                                                
+               <IonButton color='danger' onClick={() => deletarProduto()}>                                                
                 <IonIcon icon={trashOutline}> </IonIcon>                                            
                 Remover
-               </IonButton> */}
+               </IonButton>
 
                <IonModal ref={modal} canDismiss={canDismiss} presentingElement={presentingElement!}>
                 <p>Tem certeza que deseja remover este produto?</p>
