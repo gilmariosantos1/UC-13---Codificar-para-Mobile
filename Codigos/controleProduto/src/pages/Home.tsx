@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, 
   IonList, IonLabel, IonItem, useIonViewWillEnter, IonIcon, IonItemSliding,
   useIonActionSheet,
-  IonModal, 
   } from '@ionic/react';
 import { useState } from 'react';
 import { ProdutoService } from '../service/ProdutoService';
 import { useHistory } from 'react-router';
-import { trashOutline } from 'ionicons/icons';
+import { create, trashOutline } from 'ionicons/icons';
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -36,45 +35,25 @@ const Home: React.FC = () => {
     history.push('/cadastro');
   }
 
-  //modal para confirmar a remoção do produto
-  const modal = useRef<HTMLIonModalElement>(null);
-  const page = useRef(null);
-
-  const [presentingElement, setPresentingElement] = useState<HTMLElement | null>(null);
   const [present] = useIonActionSheet();
 
-  useEffect(() => {
-    setPresentingElement(page.current);
-  }, []);
-
-  function deletarProduto() {    
-    modal.current?.dismiss();    
-  }
-   function canDismiss() {
-    return new Promise<boolean>((resolve, reject) => {
-      present({
-        header: 'Are you sure?',
-        buttons: [
-          {
-            text: 'Yes',
-            role: 'confirm',
-          },
-          {
-            text: 'No',
-            role: 'cancel',
-          },
-        ],
-        onWillDismiss: (event) => {
-          if (event.detail.role === 'confirm') {
-            resolve(true);
-          } else {
-            reject();
-          }
-        },
-      });
+  async function deleteProduto(id: number) {
+    present({
+      header: 'Tem certeza que deseja remover este produto?',
+      buttons: [
+        { text: 'Sim', role: 'confirm' },
+        { text: 'Não', role: 'cancel' },
+      ],
+      onWillDismiss: (event) => {
+        if (event.detail.role === 'confirm') {
+          removerProduto(id);
+        }
+      },
     });
   }
-   
+     async function editarProduto(id: number) {
+    history.push(`/editar/${id}`);
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -95,15 +74,13 @@ const Home: React.FC = () => {
                 <IonLabel>
                   {produto.nome} - R$ {produto.preco.toFixed(2)} | Estoque: {estoque}               
                </IonLabel>             
-               <IonButton color='danger' onClick={() => deletarProduto()}>                                                
-                <IonIcon icon={trashOutline}> </IonIcon>                                            
+               <IonButton color='warning' onClick={() => editarProduto(produto.id)}>                                                
+                <IonIcon icon={create}> </IonIcon>   
+                </IonButton>                                          
+               <IonButton color='danger' onClick={() => deleteProduto(produto.id)}>                                                
+                <IonIcon icon={trashOutline}> </IonIcon>                                             
                 Remover
                </IonButton>
-
-               <IonModal ref={modal} canDismiss={canDismiss} presentingElement={presentingElement!}>
-                <p>Tem certeza que deseja remover este produto?</p>
-                <IonButton color='danger' onClick={() => deletarProduto()}>Remover</IonButton>                
-               </IonModal>
               </IonItem>              
               </IonItemSliding>
             );            

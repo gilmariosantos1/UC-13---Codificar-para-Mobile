@@ -40,6 +40,25 @@ export class ProdutoService {
         }
     }
 
+    //atualizar um produto
+    async atualizar(id: number, produto: any){
+        try {
+            const res = await fetch(`${this.baseUrl}/produtos/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(produto)
+            });
+            if (!res.ok) {
+                throw new Error(`Falha ao atualizar produto: ${res.status}`);
+            }
+            return await res.json();
+        } catch (error) {
+            console.error("Erro ao atualizar produto:", error);
+            return null;
+        }
+    }
     //remover um produto
     async remover(id: number){
         try {

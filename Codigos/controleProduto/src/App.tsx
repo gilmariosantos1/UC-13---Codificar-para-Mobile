@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Editar from './pages/Editar';
 
 setupIonicReact();
 
@@ -50,6 +51,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/cadastro">
             <Cadastro />
+          </Route>
+          <Route exact path="/editar/:id">
+            <Editar />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
